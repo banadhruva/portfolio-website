@@ -52,7 +52,7 @@ Want to explore the engine under the hood?
 
 1. **Clone the repo**
    ```bash
-   git clone [https://github.com/banadhruva/portfolio-website.git](https://github.com/banadhruva/portfolio-website.git)
+   git clone https://github.com/banadhruva/portfolio-website.git
 
 2. **Install dependencies**
    ```bash
