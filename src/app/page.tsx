@@ -4,15 +4,13 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { ScrollToPlugin } from 'gsap/dist/ScrollToPlugin'
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer } from 'recharts'
-import { Linkedin, Github, Youtube, Mail, Pin, Play, X } from 'lucide-react' 
+import { Linkedin, Github, Youtube, Mail, Pin, Play, ChevronDown } from 'lucide-react' 
 import SmoothScroll from '@/components/SmoothScroll'
 
-// Register GSAP Plugins
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollToPlugin)
 }
 
-// --- DATA CONFIG: DEVELOPER ---
 const projects = [
   { id: "01", title: 'Uni-Verse Portal', desc: "High-performance Full-Stack university portal with PGBouncer session pooling.", img: "/proj1.png", link: "https://uni-verse-99.vercel.app/" },
   { id: "02", title: "Vibe-Tribe", desc: "Social music platform with ML-based recommendations and WebSockets.", img: "/proj2.png", link: "https://github.com/banadhruva/Vibe-Tribe" },
@@ -34,7 +32,6 @@ const services = [
   { title: "Technical R&D", desc: "Prototyping complex technical concepts into reality." }
 ];
 
-// --- DATA CONFIG: THE MAN ---
 const personalAchievements = [
   { title: "First Half Marathon", stat: "21.1 KM", desc: "A test of mental endurance and physical limit pushing.", img: "/marathon.jpg", category: "Endurance" },
   { title: "Contingent Commander", stat: "COMMAND", desc: "Discipline and precision leading the Jalandhar Grp Contingent at IGC-RDC", img: "/ncc.jpg", category: "Leadership" },
@@ -42,7 +39,6 @@ const personalAchievements = [
   { title: "Cultural Performance", stat: "GUITAR", desc: "Musical Duet Performance at Inter College Cultural Fest", img: "/guitar.jpg", category: "Creative" }
 ];
 
-// --- DATA CONFIG: SOCIALS ---
 const socialLinks = [
   { name: "LinkedIn", url: "https://www.linkedin.com/in/dhruv-bana/", icon: Linkedin },
   { name: "GitHub", url: "https://github.com/banadhruva", icon: Github },
@@ -91,17 +87,12 @@ export default function Home() {
         gsap.fromTo(".man-card", 
           { opacity: 0, y: 50 },
           { 
-            opacity: 1, 
-            y: 0, 
-            stagger: 0.15, 
-            duration: 1, 
-            ease: "power3.out",
+            opacity: 1, y: 0, stagger: 0.15, duration: 1, ease: "power3.out",
             scrollTrigger: { trigger: ".achievements-grid", start: "top 75%" } 
           }
         );
       }
     });
-
     return () => ctx.revert();
   }, [activeBranch]);
 
@@ -127,44 +118,43 @@ export default function Home() {
           </div>
 
           <div className="hidden md:flex gap-5 pointer-events-auto relative items-center">
-            <button onClick={() => setIsChapterOpen(true)} className="text-[10px] font-bold tracking-[0.3em] uppercase text-black border-b-2 border-red-600 pb-1">
-              CHAPTERS
-            </button>
+            {/* --- IMPROVED DROPDOWN CHAPTERS --- */}
+            <div className="relative">
+              <button 
+                onClick={() => setIsChapterOpen(!isChapterOpen)} 
+                className="flex items-center gap-2 text-[10px] font-bold tracking-[0.3em] uppercase text-black border-b-2 border-red-600 pb-1"
+              >
+                CHAPTERS <ChevronDown size={12} className={`transition-transform ${isChapterOpen ? 'rotate-180' : ''}`} />
+              </button>
+              
+              {isChapterOpen && (
+                <div className="absolute top-10 right-0 w-48 bg-black p-4 flex flex-col gap-4 shadow-2xl rounded-sm animate-in slide-in-from-top-2 duration-200">
+                  {activeBranch === 'developer' ? (
+                    <>
+                      <button onClick={() => scrollToAnchor('#genesis-sec')} className="text-[10px] text-white hover:text-red-600 text-left font-bold tracking-widest uppercase transition-colors">01. Genesis</button>
+                      <button onClick={() => scrollToAnchor('#portfolio')} className="text-[10px] text-white hover:text-red-600 text-left font-bold tracking-widest uppercase transition-colors">02. Portfolio</button>
+                      <button onClick={() => scrollToAnchor('#services-sec')} className="text-[10px] text-white hover:text-red-600 text-left font-bold tracking-widest uppercase transition-colors">03. Services</button>
+                    </>
+                  ) : (
+                    <>
+                      <button onClick={() => { setIsChapterOpen(false); window.scrollTo({top:0, behavior:'smooth'}) }} className="text-[10px] text-white hover:text-red-600 text-left font-bold tracking-widest uppercase transition-colors">Top</button>
+                      <button onClick={() => scrollToAnchor('#footer')} className="text-[10px] text-white hover:text-red-600 text-left font-bold tracking-widest uppercase transition-colors">Contact</button>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+            
             <button onClick={() => scrollToAnchor('#footer')} className="text-[10px] font-bold tracking-[0.3em] uppercase bg-black text-white px-5 py-2.5 hover:bg-red-600 transition-all rounded-sm">
               LET'S CONNECT
             </button>
           </div>
         </nav>
 
-        {/* --- CHAPTERS OVERLAY (STRICT OVERLAY FIX) --- */}
-        {isChapterOpen && (
-          <div className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-10 animate-in fade-in duration-300">
-            <button onClick={() => setIsChapterOpen(false)} className="absolute top-10 right-10 text-white hover:text-red-600 transition-colors">
-              <X size={40} strokeWidth={1} />
-            </button>
-            <div className="flex flex-col gap-8 text-center">
-              <p className="text-red-600 font-bold tracking-[0.5em] uppercase text-[10px]">Navigation</p>
-              {activeBranch === 'developer' ? (
-                <>
-                  <button onClick={() => scrollToAnchor('#genesis-sec')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">01. Genesis</button>
-                  <button onClick={() => scrollToAnchor('#portfolio')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">02. Portfolio</button>
-                  <button onClick={() => scrollToAnchor('#services-sec')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">03. Services</button>
-                </>
-              ) : (
-                <>
-                  <button onClick={() => { setIsChapterOpen(false); window.scrollTo({top:0, behavior:'smooth'}) }} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">Top</button>
-                  <button onClick={() => scrollToAnchor('#footer')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">Contact</button>
-                </>
-              )}
-            </div>
-          </div>
-        )}
-
         {/* --- DEVELOPER BRANCH --- */}
         {activeBranch === 'developer' && (
           <div key="dev-branch">
             <div id="genesis-sec" className="hero-trigger h-[300vh] w-full" />
-            
             <div className="fixed inset-0 z-10 h-screen w-full overflow-hidden">
               <video autoPlay muted loop playsInline className="h-full w-full object-cover">
                 <source src="/hero-video.mp4" type="video/mp4" />
@@ -266,11 +256,7 @@ export default function Home() {
           <div key="man-branch" className="bg-[#070707] min-h-screen text-white">
             <section className="h-screen w-full relative overflow-hidden flex items-end p-10 md:p-20">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover grayscale-[40%] brightness-50">
-<<<<<<< HEAD
                 <source src="https://res.cloudinary.com/daookjsaa/video/upload/v1769703203/solo-hike_nlfzoi.mp4" type="video/mp4" />
-=======
-                <source src="/solo-hike.mp4" type="video/mp4" />
->>>>>>> e112385c10153e01db98610d46005b579d8ab6b6
               </video>
               <div className="relative z-10 w-full">
                 <p className="text-red-600 font-bold tracking-[0.5em] text-[15px] uppercase mb-4">Behind the screen</p>
@@ -303,16 +289,12 @@ export default function Home() {
               <a href="https://youtu.be/TPa-T2sFLfo?si=XBwPt5KA5Q8YnErM" target="_blank" className="group relative block w-full aspect-video md:aspect-[21/9] overflow-hidden rounded-sm border border-white/10 bg-black">
                 <img src="/trek-thumb.jpg" alt="Trek" className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-0 transition-opacity duration-700 grayscale group-hover:grayscale-0" />
                 <video muted loop playsInline className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-40 transition-opacity duration-700">
-                  <source src="/solo-hike.mp4" type="video/mp4" />
+                  <source src="https://res.cloudinary.com/daookjsaa/video/upload/v1769703203/solo-hike_nlfzoi.mp4" type="video/mp4" />
                 </video>
                 <div className="absolute inset-0 flex items-center justify-center z-20">
                   <div className="w-20 h-20 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center border border-white/20 group-hover:bg-red-600 group-hover:border-red-600 transition-all duration-300">
                     <Play className="text-white fill-white ml-1" size={32} />
                   </div>
-                </div>
-                <div className="absolute bottom-8 left-8 flex items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                  <span className="bg-red-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 italic">Watch Experience</span>
-                  <p className="text-white text-xs tracking-widest uppercase font-medium">Kheerganga, HP — 2024</p>
                 </div>
               </a>
             </section>
@@ -324,15 +306,15 @@ export default function Home() {
           <h2 className="text-6xl md:text-[8vw] font-black italic uppercase tracking-tighter leading-none mb-16">Let's Connect</h2>
           <div className="flex flex-wrap justify-center gap-10 md:gap-20 mb-20">
              {socialLinks.map((link, i) => {
-                const IconComponent = link.icon;
-                return (
-                  <a key={i} href={link.url} target="_blank" className="group flex flex-col items-center gap-4 transition-transform hover:-translate-y-3 duration-500">
-                    <div className={`w-20 h-20 flex items-center justify-center border-2 rounded-2xl shadow-sm transition-all duration-300 ${activeBranch === 'man' ? 'border-white/10 group-hover:border-red-600 group-hover:bg-red-600/5' : 'border-zinc-100 group-hover:border-red-600 group-hover:bg-red-600/5'}`}>
-                      <IconComponent className="transition-all duration-300 group-hover:scale-110 group-hover:text-red-600" size={32} />
-                    </div>
-                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">{link.name}</span>
-                  </a>
-                )
+               const IconComponent = link.icon;
+               return (
+                 <a key={i} href={link.url} target="_blank" className="group flex flex-col items-center gap-4 transition-transform hover:-translate-y-3 duration-500">
+                   <div className={`w-20 h-20 flex items-center justify-center border-2 rounded-2xl shadow-sm transition-all duration-300 ${activeBranch === 'man' ? 'border-white/10 group-hover:border-red-600 group-hover:bg-red-600/5' : 'border-zinc-100 group-hover:border-red-600 group-hover:bg-red-600/5'}`}>
+                     <IconComponent className="transition-all duration-300 group-hover:scale-110 group-hover:text-red-600" size={32} />
+                   </div>
+                   <span className="text-[10px] font-black uppercase tracking-[0.2em]">{link.name}</span>
+                 </a>
+               )
              })}
           </div>
           <a href="mailto:banad972@gmail.com" className="inline-block px-16 py-6 bg-red-600 text-white text-[11px] font-black uppercase tracking-[0.5em] hover:bg-black transition-all duration-300 shadow-2xl rounded-sm">
