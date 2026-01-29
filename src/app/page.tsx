@@ -53,7 +53,7 @@ const socialLinks = [
 
 export default function Home() {
   const containerRef = useRef(null);
-  const horizontalRef = useRef(null);
+  const horizontalRef = useRef<HTMLDivElement>(null);
   const [activeBranch, setActiveBranch] = useState('developer');
   const [isChapterOpen, setIsChapterOpen] = useState(false);
 
@@ -266,7 +266,11 @@ export default function Home() {
           <div key="man-branch" className="bg-[#070707] min-h-screen text-white">
             <section className="h-screen w-full relative overflow-hidden flex items-end p-10 md:p-20">
               <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover grayscale-[40%] brightness-50">
+<<<<<<< HEAD
                 <source src="https://res.cloudinary.com/daookjsaa/video/upload/v1769703203/solo-hike_nlfzoi.mp4" type="video/mp4" />
+=======
+                <source src="/solo-hike.mp4" type="video/mp4" />
+>>>>>>> e112385c10153e01db98610d46005b579d8ab6b6
               </video>
               <div className="relative z-10 w-full">
                 <p className="text-red-600 font-bold tracking-[0.5em] text-[15px] uppercase mb-4">Behind the screen</p>
