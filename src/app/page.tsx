@@ -52,7 +52,7 @@ const socialLinks = [
 ];
 
 export default function Home() {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const horizontalRef = useRef<HTMLDivElement>(null);
   const [activeBranch, setActiveBranch] = useState('developer');
   const [isChapterOpen, setIsChapterOpen] = useState(false);
