@@ -81,7 +81,7 @@ export default function Home() {
               trigger: ".project-wrapper",
               pin: true,
               scrub: 1,
-              end: () => "+=" + (horizontalRef.current?.offsetWidth || 2000),
+              end: () => "+=" + ((horizontalRef.current as HTMLDivElement)?.offsetWidth || 2000),
             }
           });
         }
