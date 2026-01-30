@@ -157,7 +157,7 @@ export default function Home() {
             <div id="genesis-sec" className="hero-trigger h-[300vh] w-full" />
             <div className="fixed inset-0 z-10 h-screen w-full overflow-hidden">
               <video autoPlay muted loop playsInline className="h-full w-full object-cover">
-                <source src="/hero-video.mp4" type="video/mp4" />
+                <source src="https://res.cloudinary.com/daookjsaa/video/upload/v1769755425/hero-video_e6rtqt.mp4" />
               </video>
               <div className="absolute inset-0 bg-black/50" />
               <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center">
