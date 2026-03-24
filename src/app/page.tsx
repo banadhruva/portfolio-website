@@ -132,6 +132,18 @@ function PageTransition({ isTransitioning }: { isTransitioning: boolean }) {
   );
 }
 
+// ─── CHAPTER DROPDOWN ITEM ────────────────────────────────────────────────────
+function ChapterItem({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full text-left px-4 py-3 text-[10px] font-black uppercase tracking-[0.25em] text-zinc-400 hover:text-white hover:bg-red-600/10 hover:pl-6 transition-all duration-200 border-b border-white/5 last:border-0"
+    >
+      {label}
+    </button>
+  );
+}
+
 // ─── EXPERIENCE TIMELINE SECTION ─────────────────────────────────────────────
 function ExperienceSection() {
   return (
@@ -195,6 +207,7 @@ export default function Home() {
 
   const switchBranch = (branch: string) => {
     if (branch === activeBranch) return;
+    setIsChapterOpen(false);
     setIsTransitioning(true);
     setTimeout(() => {
       setActiveBranch(branch);
@@ -284,40 +297,70 @@ export default function Home() {
             </button>
           </div>
 
+          {/* --- CHAPTERS DROPDOWN --- */}
           <div className="hidden md:flex gap-5 pointer-events-auto relative items-center">
-            <button onClick={() => setIsChapterOpen(true)} className="text-[10px] font-bold tracking-[0.3em] uppercase text-black border-b-2 border-red-600 pb-1">
-              CHAPTERS
-            </button>
-            <button onClick={() => scrollToAnchor('#footer')} className="text-[10px] font-bold tracking-[0.3em] uppercase bg-black text-white px-5 py-2.5 hover:bg-red-600 transition-all rounded-sm">
+            <div className="relative">
+              <button
+                onClick={() => setIsChapterOpen(prev => !prev)}
+                className="text-[10px] font-bold tracking-[0.3em] uppercase text-black border-b-2 border-red-600 pb-1 flex items-center gap-2"
+              >
+                CHAPTERS
+                <span
+                  className="inline-block transition-transform duration-300 text-red-600"
+                  style={{ transform: isChapterOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                >
+                  ▾
+                </span>
+              </button>
+
+              {isChapterOpen && (
+                <>
+                  {/* Backdrop to close on outside click */}
+                  <div className="fixed inset-0 z-[90]" onClick={() => setIsChapterOpen(false)} />
+
+                  <div
+                    className="absolute right-0 top-[calc(100%+12px)] z-[100] min-w-[200px] bg-[#0a0a0a] border border-white/10 shadow-2xl overflow-hidden rounded-sm"
+                    style={{ animation: 'dropIn 0.2s cubic-bezier(0.16,1,0.3,1)' }}
+                  >
+                    <style>{`
+                      @keyframes dropIn {
+                        from { opacity: 0; transform: translateY(-6px); }
+                        to   { opacity: 1; transform: translateY(0); }
+                      }
+                    `}</style>
+
+                    <div className="px-4 py-2.5 border-b border-white/5">
+                      <p className="text-red-600 text-[8px] font-black tracking-[0.4em] uppercase italic">
+                        {activeBranch === 'developer' ? 'Dev Branch' : 'Man Branch'}
+                      </p>
+                    </div>
+
+                    {activeBranch === 'developer' ? (
+                      <>
+                        <ChapterItem label="01. Genesis"    onClick={() => scrollToAnchor('#genesis-sec')} />
+                        <ChapterItem label="02. Portfolio"  onClick={() => scrollToAnchor('#portfolio')} />
+                        <ChapterItem label="03. Experience" onClick={() => scrollToAnchor('#experience-sec')} />
+                        <ChapterItem label="04. Services"   onClick={() => scrollToAnchor('#services-sec')} />
+                      </>
+                    ) : (
+                      <>
+                        <ChapterItem label="Top"     onClick={() => { setIsChapterOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }) }} />
+                        <ChapterItem label="Contact" onClick={() => scrollToAnchor('#footer')} />
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+
+            <button
+              onClick={() => scrollToAnchor('#footer')}
+              className="text-[10px] font-bold tracking-[0.3em] uppercase bg-black text-white px-5 py-2.5 hover:bg-red-600 transition-all rounded-sm"
+            >
               LET'S CONNECT
             </button>
           </div>
         </nav>
-
-        {/* --- CHAPTERS OVERLAY --- */}
-        {isChapterOpen && (
-          <div className="fixed inset-0 z-[1000] bg-black/95 backdrop-blur-xl flex flex-col items-center justify-center p-10 animate-in fade-in duration-300">
-            <button onClick={() => setIsChapterOpen(false)} className="absolute top-10 right-10 text-white hover:text-red-600 transition-colors">
-              <X size={40} strokeWidth={1} />
-            </button>
-            <div className="flex flex-col gap-8 text-center">
-              <p className="text-red-600 font-bold tracking-[0.5em] uppercase text-[10px]">Navigation</p>
-              {activeBranch === 'developer' ? (
-                <>
-                  <button onClick={() => scrollToAnchor('#genesis-sec')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">01. Genesis</button>
-                  <button onClick={() => scrollToAnchor('#portfolio')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">02. Portfolio</button>
-                  <button onClick={() => scrollToAnchor('#experience-sec')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">03. Experience</button>
-                  <button onClick={() => scrollToAnchor('#services-sec')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">04. Services</button>
-                </>
-              ) : (
-                <>
-                  <button onClick={() => { setIsChapterOpen(false); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">Top</button>
-                  <button onClick={() => scrollToAnchor('#footer')} className="text-4xl md:text-7xl font-black italic text-white uppercase hover:text-red-600 transition-colors tracking-tighter">Contact</button>
-                </>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* ================================================================== */}
         {/*  DEVELOPER BRANCH                                                   */}
@@ -447,7 +490,6 @@ export default function Home() {
               <ExperienceSection />
             </div>
 
-            
             {/* --- SERVICES --- */}
             <section id="services-sec" className="relative z-50 bg-white py-32 px-10 border-t border-zinc-100 text-left">
               <div className="max-w-7xl mx-auto">
@@ -494,7 +536,6 @@ export default function Home() {
                 <div className="mt-12 h-px w-full bg-white/10" />
               </div>
             </section>
-
 
             <section className="achievements-grid py-32 px-6 md:px-10 max-w-[1400px] mx-auto">
               <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10">
