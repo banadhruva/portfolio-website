@@ -544,9 +544,10 @@ export default function Home() {
                           My work at SAG focuses on applied cryptography and developing secure communication systems for critical defense applications.
                         </p>
                         <p className="text-[12px] text-zinc-500 leading-[1.85] tracking-wide">
-                          Beyond security, I specialize in the intersection of machine learning, AI-driven applications, and production-ready web architectures.
+                          Beyond security, I specialize in the intersection of machine learning, AI-driven applications, and production-ready web architectures. Passionate about engineering end-to-end products — transforming complex data and models into secure, scalable, and cloud-deployed platforms.
                         </p>
                       </div>
+
                       <div className="flex flex-wrap gap-2 mt-6 pt-5 border-t border-zinc-100">
                         {["Cryptography", "Full Stack", "ML / AI", "Defence R&D", "Cloud Arch"].map((tag, i) => (
                           <span key={i} className="text-[8px] font-bold uppercase tracking-[0.15em] text-zinc-400 border border-zinc-200 px-3 py-1.5 hover:border-red-600 hover:text-red-600 transition-colors duration-200">
@@ -568,19 +569,12 @@ export default function Home() {
                 <div className="w-20 h-20 rounded-sm overflow-hidden shrink-0 border border-zinc-100">
                   <img src="/dp.png" alt="Dhruv" className="w-full h-full object-cover object-top" />
                 </div>
-                <div className="flex flex-col gap-4 flex-1">
-                        <p className="text-[12px] text-zinc-500 leading-[1.85] tracking-wide">
-                          I am a Computer Science student at{" "}
-                          <span className="text-black font-semibold">IK Gujral Punjab Technical University</span>{" "}
-                          and currently an Intern at{" "}
-                          <span className="text-red-600 font-semibold">DRDO's Scientific Analysis Group (SAG)</span>.
-                          My work at SAG focuses on applied cryptography and developing secure communication systems for critical defense applications.
-                        </p>
-                        <p className="text-[12px] text-zinc-500 leading-[1.85] tracking-wide">
-                          Beyond security, I specialize in the intersection of machine learning, AI-driven applications, and production-ready web architectures. Passionate about engineering end-to-end products — transforming complex data and models into secure, scalable, and cloud-deployed platforms.
-                        </p>
-                      </div>
-
+                <div>
+                  <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400 mb-1">Dhruv Bana</p>
+                  <p className="text-[11px] text-zinc-500 leading-relaxed">
+                    CS student at <span className="text-black font-semibold">IKG PTU</span> and Intern at <span className="text-red-600 font-semibold">DRDO SAG</span>. Working on applied cryptography & secure comms for defence.
+                  </p>
+                </div>
               </div>
               <p className="text-[12px] text-zinc-500 leading-[1.85] mb-6">
                 Beyond security, I specialize in ML, AI-driven applications, and production-ready web architectures — transforming complex data and models into scalable, cloud-deployed platforms.
@@ -751,7 +745,7 @@ export default function Home() {
                 {/* Always visible on mobile; hover-reveal on desktop */}
                 <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex flex-wrap items-center gap-2 md:gap-4 z-20 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500">
                   <span className="bg-red-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 italic">Watch Experience</span>
-                  <p className="text-white text-[9px] md:text-xs tracking-widest uppercase font-medium">Beas Kund Trek, Solang Valley — 2024</p>
+                  <p className="text-white text-[9px] md:text-xs tracking-widest uppercase font-medium">Kheerganga, HP — 2024</p>
                 </div>
               </a>
             </section>
