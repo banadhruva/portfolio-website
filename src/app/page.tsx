@@ -744,7 +744,7 @@ export default function Home() {
                 {/* Always visible on mobile; hover-reveal on desktop */}
                 <div className="absolute bottom-4 left-4 md:bottom-8 md:left-8 flex flex-wrap items-center gap-2 md:gap-4 z-20 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-500">
                   <span className="bg-red-600 text-white text-[9px] font-black uppercase tracking-widest px-3 py-1 italic">Watch Experience</span>
-                  <p className="text-white text-[9px] md:text-xs tracking-widest uppercase font-medium">Kheerganga, HP — 2024</p>
+                  <p className="text-white text-[9px] md:text-xs tracking-widest uppercase font-medium">Beas Kund Trek, Solang Valley — 2024</p>
                 </div>
               </a>
             </section>
